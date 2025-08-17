@@ -1,0 +1,47 @@
+# OS / editors / misc
+.DS_Store
+*.log
+*.tmp
+.idea/
+.vscode/
+
+# Env files (keep a template tracked)
+.env
+.env.*
+!.env.example
+
+# General build artifacts
+build/
+dist/
+
+# Python (backend)
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.venv/
+venv/
+
+# Flutter/Dart (mobile)
+.dart_tool/
+.packages
+.pub-cache/
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos_tool/
+# Flutter builds
+mobile/build/
+
+# Rust (cli)
+target/
+# Keep lockfile for apps (recommended)
+#! Cargo.lock
+
+# Node (if any tooling/scripts)
+node_modules/
+# keep lockfiles tracked:
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

@@ -1,0 +1,27 @@
+{
+  "name": "fullstack-pro",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/rust:1": {}
+  },
+  "postCreateCommand": "pip install -r backend/requirements-dev.txt || true",
+  "customizations": {
+    "vscode": {
+      "settings": { "editor.formatOnSave": true },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "ms-azuretools.vscode-docker",
+        "dart-code.dart-code",
+        "dart-code.flutter",
+        "rust-lang.rust-analyzer",
+        "github.vscode-github-actions"
+      ]
+    }
+  }
+}
