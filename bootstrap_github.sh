@@ -45,12 +45,37 @@ create_label "type:chore" "c5def5" "Chore"
 create_label "type:test"  "bfd4f2" "Testing"
 create_label "type:docs"  "0075ca" "Docs"
 
-# Create an issue with exactly three labels
-create_issue() {
+# (Optional) Target a specific repository from anywhere
+
+if [[ -n "${GH_REPO:-}" ]]; then
+  REPO_FLAG=(-R "$GH_REPO")
+fi
+
+# return 0 (true) if an issue with the given title already exists (open or closed)
+issue_exists() {
+  local title="$1"
+  gh issue list "${REPO_FLAG[@]}" \ 
+  --search "in:title \"$title\"" \
+  --state all \
+  --json number --limit 1 /
+  -q '.[0].number' 2>/dev/null | grep -qE '^[0-9]+$'
+}
+
+
+
+
+# Create an issue; forward extra flags (Labels, assignees, etc.); skip if title exists
+  create_issue() {
   local title="$1";
   local body="$2"; shift 2
 
-  gh issue create -t "$title" -b "$body" "$@" || true
+  if issue_exists "$title"; then
+    echo "⏭  Skipping (exists): $title"
+    return 0
+  fi
+
+  gh "${REPO_FLAG[@]}" issue create -t "$title" -b "$body" "$@" \
+  && echo "✅ Created: $title" || echo "⚠️ Failed: $title"s
 }
 
 echo "==> Bootstrapping GitHub labels and issues..."
